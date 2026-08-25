@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bharti Pandey — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FFFFFF;
+    --paper-dim:#F4F6F8;
+    --ink:#1B2126;
+    --navy:#1B3A5C;
+    --navy-dim:#2C5079;
+    --gold:#B8863B;
+    --line:#E2E6EA;
+    --muted:#5C6570;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--gold); color:#fff;}
+
+  /* ---------- nav ---------- */
+  .navbar{
+    position:sticky; top:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    background:var(--paper);
+    padding:16px 32px;
+    border-bottom:1px solid var(--line);
+  }
+  .navbar .brand{font-family:'Fraunces',serif; font-weight:600; font-size:19px; color:var(--navy);}
+  .navlinks{display:flex; gap:6px;}
+  .navlinks button{
+    font-family:'Inter',sans-serif; font-weight:500; font-size:14px;
+    color:var(--muted); background:transparent; border:none; cursor:pointer;
+    padding:9px 14px; border-radius:4px; transition:color .15s ease, background .15s ease;
+  }
+  .navlinks button:hover{color:var(--navy); background:var(--paper-dim);}
+  .navlinks button.active{color:var(--navy); font-weight:600; background:var(--paper-dim);}
+  .navlinks button:focus-visible{outline:2px solid var(--navy); outline-offset:1px;}
+  @media (max-width:640px){ .navlinks{gap:2px;} .navlinks button{padding:8px 9px; font-size:12.5px;} }
+
+  section{padding:88px 32px; max-width:880px; margin:0 auto; scroll-margin-top:72px;}
+  .eyebrow{
+    font-size:13px; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:14px;
+  }
+  h1,h2,h3{font-family:'Fraunces',serif; font-weight:600; letter-spacing:-.01em;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height:calc(100vh - 65px);
+    display:flex; flex-direction:column; justify-content:center;
+    max-width:880px; padding:60px 32px;
+    scroll-margin-top:72px;
+  }
+  .hero h1{ font-size:clamp(38px, 6.5vw, 60px); line-height:1.08; color:var(--navy); }
+  .hero .role{ font-size:19px; color:var(--muted); margin-top:18px; max-width:560px; }
+  .hero-actions{display:flex; gap:14px; margin-top:36px; flex-wrap:wrap;}
+  .btn{
+    font-family:'Inter',sans-serif; font-weight:600; font-size:14.5px;
+    padding:13px 26px; border-radius:4px;
+    text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    transition:background .15s ease, color .15s ease, transform .15s ease;
+    border:1.5px solid var(--navy);
+  }
+  .btn:focus-visible{outline:2px solid var(--gold); outline-offset:2px;}
+  .btn-primary{background:var(--navy); color:#fff;}
+  .btn-primary:hover{background:var(--navy-dim); transform:translateY(-1px);}
+  .btn-ghost{background:transparent; color:var(--navy);}
+  .btn-ghost:hover{background:var(--paper-dim); transform:translateY(-1px);}
+
+  .hero-meta{
+    margin-top:50px; padding-top:22px; border-top:1px solid var(--line);
+    display:flex; gap:32px; flex-wrap:wrap; font-size:14px; color:var(--muted);
+  }
+  .hero-meta span b{color:var(--ink); font-weight:600;}
+
+  /* ---------- about ---------- */
+  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:48px; align-items:start;}
+  .about-grid p{color:#3A3F44; font-size:16.5px; margin-bottom:16px;}
+  .about-grid p:last-child{margin-bottom:0;}
+  .stat-card{
+    background:var(--paper-dim); border:1px solid var(--line); border-radius:6px;
+    padding:22px; margin-bottom:14px;
+  }
+  .stat-card .num{font-family:'Fraunces',serif; font-size:32px; color:var(--navy); font-weight:600;}
+  .stat-card .label{font-size:12.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-top:4px; font-weight:600;}
+  @media (max-width:760px){ .about-grid{grid-template-columns:1fr;} }
+
+  /* ---------- skills ---------- */
+  .skill-group{margin-bottom:22px;}
+  .skill-group .label{font-size:13px; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:.04em; margin-bottom:10px;}
+  .skill-tags{display:flex; flex-wrap:wrap; gap:10px;}
+  .skill-tags span{
+    font-size:14px; font-weight:500; border:1px solid var(--line); padding:9px 16px;
+    border-radius:20px; color:var(--ink); background:var(--paper-dim);
+  }
+
+  /* ---------- projects ---------- */
+  .project-card{ border:1px solid var(--line); border-radius:6px; overflow:hidden; background:var(--paper); }
+  .project-head{
+    padding:26px 30px; display:flex; justify-content:space-between; align-items:flex-start; gap:20px;
+    border-bottom:1px solid var(--line); background:var(--paper-dim); flex-wrap:wrap;
+  }
+  .project-head h3{font-size:24px; color:var(--navy);}
+  .project-tag{
+    font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.04em;
+    color:var(--navy); border:1px solid var(--navy); padding:5px 12px; border-radius:20px; white-space:nowrap;
+  }
+  .project-body{padding:26px 30px;}
+  .project-body .stack{font-size:14px; color:var(--muted); margin-bottom:18px;}
+  .project-body .stack b{color:var(--ink); font-weight:600;}
+  .project-body ul{list-style:none;}
+  .project-body li{ position:relative; padding-left:22px; margin-bottom:11px; color:#3A3F44; font-size:15.5px; }
+  .project-body li::before{ content:"—"; position:absolute; left:0; color:var(--gold); }
+
+  /* ---------- education ---------- */
+  .edu-card{
+    display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap;
+    border:1px solid var(--line); border-radius:6px; padding:28px 30px; background:var(--paper-dim);
+  }
+  .edu-card h3{font-size:21px; margin-bottom:6px; color:var(--navy);}
+  .edu-card .school{color:var(--muted); font-size:15px;}
+  .edu-cgpa{text-align:right;}
+  .edu-cgpa .val{font-size:28px; color:var(--navy); font-weight:600; font-family:'Fraunces',serif;}
+  .edu-cgpa .lbl{font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; font-weight:600;}
+
+  /* ---------- contact ---------- */
+  .contact-section{padding-bottom:100px;}
+  .contact-card{
+    border:1px solid var(--line); border-radius:6px; background:var(--paper-dim);
+    padding:8px; display:grid; grid-template-columns:repeat(2, 1fr); gap:8px;
+  }
+  .contact-item{
+    display:flex; align-items:center; gap:14px; padding:18px 20px;
+    background:var(--paper); border-radius:5px; text-decoration:none; color:var(--ink);
+    transition:box-shadow .15s ease, transform .15s ease;
+  }
+  .contact-item:hover{ box-shadow:0 2px 10px rgba(27,58,92,.12); transform:translateY(-1px); }
+  .contact-item .icon{
+    width:38px; height:38px; border-radius:50%; background:var(--navy); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0;
+  }
+  .contact-item .txt .k{font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; font-weight:600;}
+  .contact-item .txt .v{font-size:14.5px; font-weight:600; color:var(--ink); word-break:break-word;}
+  @media (max-width:600px){ .contact-card{grid-template-columns:1fr;} }
+
+  footer{
+    text-align:center; padding:24px; font-size:13px; color:var(--muted);
+    border-top:1px solid var(--line);
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="brand">Bharti Pandey</div>
+  <div class="navlinks">
+    <button class="active" data-target="#home">Home</button>
+    <button data-target="#about">About</button>
+    <button data-target="#skills">Skills</button>
+    <button data-target="#projects">Projects</button>
+    <button data-target="#education">Education</button>
+    <button data-target="#contact">Contact</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="eyebrow">Portfolio</div>
+  <h1>Bharti Pandey</h1>
+  <p class="role">3rd-year B.Tech Computer Science student, focused on front-end web development with a foundation in Python.</p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="https://event-management-system-e8x7.onrender.com" target="_blank" rel="noopener">View Project</a>
+    <a class="btn btn-ghost" href="mailto:bhartipandey4830@gmail.com">Contact Me</a>
+  </div>
+  <div class="hero-meta">
+    <span><b>CGPA</b> 7.5 / 10</span>
+    <span><b>College</b> Jawaharlal Nehru College of Technology</span>
+    <span><b>Location</b> Rewa, Madhya Pradesh</span>
+    <span><b>Status</b> Open to internships</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="eyebrow">About</div>
+  <h2 style="font-size:30px; margin-bottom:24px; color:var(--navy);">Who I am</h2>
+  <div class="about-grid">
+    <div>
+      <p>I'm a Computer Science undergraduate who enjoys taking an idea from a blank page to something people can actually use. Most of what I know, I've learned by building — picking a problem, breaking it into pieces, and delivering a working solution.</p>
+      <p>My current focus is front-end fundamentals — HTML, CSS, and JavaScript — supported by Python for logic and problem-solving. I'm looking for an internship where I can apply these skills on a real product and continue learning from an experienced team.</p>
+    </div>
+    <div>
+      <div class="stat-card"><div class="num">7.5</div><div class="label">CGPA · 3rd Year</div></div>
+      <div class="stat-card"><div class="num">01</div><div class="label">Completed Project</div></div>
+      <div class="stat-card"><div class="num">04+</div><div class="label">Core Technologies</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="eyebrow">Skills</div>
+  <h2 style="font-size:30px; margin-bottom:28px; color:var(--navy);">What I work with</h2>
+
+  <div class="skill-group">
+    <div class="label">Languages</div>
+    <div class="skill-tags"><span>Python</span><span>JavaScript</span></div>
+  </div>
+  <div class="skill-group">
+    <div class="label">Web Technologies</div>
+    <div class="skill-tags"><span>HTML5</span><span>CSS3</span><span>JavaScript</span></div>
+  </div>
+  <div class="skill-group">
+    <div class="label">Tools</div>
+    <div class="skill-tags"><span>Git</span><span>GitHub</span></div>
+  </div>
+  <div class="skill-group">
+    <div class="label">Core Strengths</div>
+    <div class="skill-tags"><span>Problem Solving</span><span>Data Structures &amp; Algorithms (Basic)</span><span>Team Collaboration</span><span>Fast Learner</span></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="eyebrow">Project</div>
+  <div class="project-card">
+    <div class="project-head">
+      <h3>Event Management System Website</h3>
+      <span class="project-tag">Personal Project</span>
+    </div>
+    <div class="project-body">
+      <div class="stack"><b>Tech Stack:</b> HTML, CSS, JavaScript</div>
+      <a href="https://event-management-system-e8x7.onrender.com" target="_blank" rel="noopener" style="display:inline-block; font-size:13.5px; font-weight:600; color:var(--navy); border:1px solid var(--navy); padding:7px 16px; border-radius:20px; text-decoration:none; margin-bottom:18px;">Live Demo →</a>
+      <ul>
+        <li>Designed and developed a responsive website to manage and showcase event listings, enabling users to browse, view details, and register for events.</li>
+        <li>Implemented interactive front-end features using HTML, CSS, and JavaScript to enhance user experience and page responsiveness.</li>
+        <li>Focused on clean UI design and structured layout for easy navigation across different event categories.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="eyebrow">Education</div>
+  <div class="edu-card">
+    <div>
+      <h3>B.Tech, Computer Science Engineering</h3>
+      <div class="school">Jawaharlal Nehru College of Technology · 3rd Year · 2026–2027</div>
+    </div>
+    <div class="edu-cgpa">
+      <div class="val">7.5</div>
+      <div class="lbl">CGPA</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="eyebrow">Contact</div>
+  <h2 style="font-size:30px; margin-bottom:24px; color:var(--navy);">Get in touch</h2>
+  <div class="contact-card">
+    <a class="contact-item" href="mailto:bhartipandey4830@gmail.com">
+      <div class="icon">@</div>
+      <div class="txt"><div class="k">Email</div><div class="v">bhartipandey4830@gmail.com</div></div>
+    </a>
+    <a class="contact-item" href="tel:+919589167753">
+      <div class="icon">☎</div>
+      <div class="txt"><div class="k">Phone</div><div class="v">+91 95891 67753</div></div>
+    </a>
+    <a class="contact-item" href="https://www.linkedin.com/in/bharti-pandey-b93220230" target="_blank" rel="noopener">
+      <div class="icon">in</div>
+      <div class="txt"><div class="k">LinkedIn</div><div class="v">bharti-pandey-b93220230</div></div>
+    </a>
+    <a class="contact-item" href="https://github.com/bharti2006-bp" target="_blank" rel="noopener">
+      <div class="icon">GH</div>
+      <div class="txt"><div class="k">GitHub</div><div class="v">bharti2006-bp</div></div>
+    </a>
+    <a class="contact-item" href="https://www.google.com/maps/search/?api=1&query=Rewa,+Madhya+Pradesh" target="_blank" rel="noopener" style="grid-column: 1 / -1;">
+      <div class="icon">📍</div>
+      <div class="txt"><div class="k">Location</div><div class="v">Rewa, Madhya Pradesh</div></div>
+    </a>
+  </div>
+</section>
+
+<footer>© 2026 Bharti Pandey</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.navlinks button');
+  const sections = Array.from(tabs).map(t => document.querySelector(t.dataset.target));
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelector(tab.dataset.target).scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const idx = sections.indexOf(entry.target);
+        tabs.forEach(t => t.classList.remove('active'));
+        if(idx > -1) tabs[idx].classList.add('active');
+      }
+    });
+  }, {rootMargin: "-80px 0px -70% 0px", threshold: 0});
+  sections.forEach(s => s && observer.observe(s));
+
+</script>
+
+</body>
+</html>
